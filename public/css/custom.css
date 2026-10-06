@@ -1,0 +1,14 @@
+.arrow_box {
+    position: relative;
+    background: #d50f29;
+    border: 0px solid #f5e131;
+    border-radius: 3px;
+}
+
+.check_box_check {
+    display: none;
+    color: rgb(255, 255, 255);
+    background: rgb(208, 56, 0);
+    padding: 2px;
+    width: 160px;
+}

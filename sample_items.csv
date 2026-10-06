@@ -1,0 +1,16 @@
+item_name,category,brand,supplier,unit_price,quantity,description
+Tomato,Vegetables,Fresh Farm,Local Supplier,50,100,Fresh red tomatoes
+Chicken Breast,Meat,Premium,Meat House,450,50,Fresh chicken breast
+Rice,Grains,Best Quality,Grain Supplier,80,200,Premium basmati rice
+Onion,Vegetables,Fresh Farm,Local Supplier,40,150,Fresh red onions
+Potato,Vegetables,Fresh Farm,Local Supplier,30,200,Quality potatoes
+Cooking Oil,Grocery,Premium,Grocery Supplier,350,80,1 liter cooking oil
+Salt,Grocery,Best Quality,Grocery Supplier,25,100,1kg salt pack
+Sugar,Grocery,Best Quality,Grocery Supplier,85,120,1kg sugar pack
+Fish,Seafood,Ocean Fresh,Fish Market,600,40,Fresh fish
+Eggs,Dairy,Farm Fresh,Local Supplier,180,150,12 pieces pack
+Milk,Dairy,Farm Fresh,Dairy Farm,80,100,1 liter milk
+Butter,Dairy,Premium,Dairy Farm,450,60,500g butter
+Chicken Leg,Meat,Premium,Meat House,350,80,Fresh chicken leg
+Beef,Meat,Premium,Meat House,750,50,1kg beef
+Mutton,Meat,Premium,Meat House,950,40,1kg mutton

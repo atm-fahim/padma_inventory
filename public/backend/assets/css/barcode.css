@@ -1,0 +1,161 @@
+.barcode-sheet {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2mm;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+/* Thermal / single-label printer: one label per row, stacked vertically */
+.barcode-sheet--single-strip {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 4mm;
+    width: 100%;
+    max-width: calc(var(--label-w, 38.1mm) + 4mm);
+    margin: 0 auto;
+}
+
+.barcode-sheet--single-strip .barcode-label {
+    flex-shrink: 0;
+}
+
+.barcode-label {
+    box-sizing: border-box;
+    width: var(--label-w, 38.1mm);
+    min-height: var(--label-h, 25.4mm);
+    max-height: var(--label-h, 25.4mm);
+    padding: 1.2mm 1mm;
+    border: 1px dashed #bbb;
+    text-align: center;
+    page-break-inside: avoid;
+    background: #fff;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.barcode-label-item {
+    font-size: var(--font-item, 7pt);
+    font-weight: 600;
+    line-height: 1.15;
+    max-height: 2.5em;
+    overflow: hidden;
+    margin-bottom: 0.5mm;
+}
+
+.inventory-barcode-page .input-group {
+    flex-wrap: nowrap;
+    align-items: stretch;
+}
+
+.inventory-barcode-page .input-group > .select2-container {
+    flex: 1 1 auto;
+    width: 1% !important;
+    min-width: 0;
+}
+
+.inventory-barcode-page .input-group .select2-container--bootstrap4 .select2-selection {
+    min-height: calc(1.5em + 0.75rem + 2px);
+    height: 100%;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 0;
+}
+
+.inventory-barcode-page .input-group .select2-container--bootstrap4 .select2-selection--single {
+    padding-top: 0.25rem;
+}
+
+.barcode-label-brand {
+    font-size: var(--font-code, 6pt);
+    line-height: 1.1;
+    margin-bottom: 0.5mm;
+}
+
+.barcode-label-price {
+    font-size: calc(var(--font-code, 6pt) + 0.5pt);
+    line-height: 1.1;
+    margin-bottom: 0.5mm;
+}
+
+.barcode-label-image {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+}
+
+.barcode-label-image img {
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    max-height: var(--barcode-max-h, 10mm);
+}
+
+.barcode-label-code {
+    font-size: var(--font-code, 6pt);
+    font-family: Consolas, monospace;
+    margin-top: 0.5mm;
+    word-break: break-all;
+    line-height: 1.1;
+}
+
+.barcode-preview-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+}
+
+.barcode-preview-frame {
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 12px;
+    max-height: 70vh;
+    overflow: auto;
+}
+
+@media print {
+    .barcode-preview-toolbar,
+    .d-print-none {
+        display: none !important;
+    }
+
+    .barcode-preview-frame {
+        border: none;
+        padding: 0;
+        max-height: none;
+        overflow: visible;
+    }
+
+    .barcode-label {
+        border: none;
+    }
+
+    .barcode-sheet--single-strip {
+        gap: 0;
+        max-width: none;
+        margin: 0;
+    }
+
+    .barcode-sheet--single-strip .barcode-label {
+        page-break-after: always;
+        break-after: page;
+        margin: 0 auto;
+    }
+
+    .barcode-sheet--single-strip .barcode-label:last-child {
+        page-break-after: auto;
+        break-after: auto;
+    }
+}

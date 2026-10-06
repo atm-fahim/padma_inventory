@@ -1,0 +1,1055 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:w="urn:schemas-microsoft-com:office:word"
+ xmlns="http://www.w3.org/TR/REC-html40">
+<head>
+<meta charset="utf-8">
+<title>Padma Inventory — Module Documentation</title>
+<!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View></w:WordDocument></xml><![endif]-->
+<style>
+body { font-family: Calibri, Arial, sans-serif; font-size: 11pt; line-height: 1.4; margin: 2cm; }
+h1 { font-size: 18pt; color: #1a5276; border-bottom: 2px solid #1a5276; padding-bottom: 6px; }
+h2 { font-size: 14pt; color: #2874a6; margin-top: 18px; }
+h3 { font-size: 12pt; color: #333; }
+pre, code { font-family: Consolas, monospace; font-size: 9pt; background: #f4f4f4; }
+table { border-collapse: collapse; width: 100%; margin: 12px 0; }
+td, th { border: 1px solid #ccc; padding: 6px 8px; text-align: left; }
+th { background: #eaecee; }
+hr { border: none; border-top: 1px solid #ccc; margin: 24px 0; }
+.page-break { page-break-before: always; }
+</style>
+</head>
+<body>
+<h1>Padma Inventory — Full Module Documentation</h1>
+<p><strong>Generated:</strong> Padma Bank IT Inventory System (padma_inventory)</p>
+<p><strong>Source:</strong> docs/modules/*.md, STRUCTURE.md</p>
+<hr><div class="page-break"></div><h1>Padma Inventory — Documentation Index</h1>
+<p>সম্পূর্ণ সিস্টেম <strong>module-wise</strong> ও <strong>structure</strong> সহ নিচের ফাইলগুলোতে ভাগ করা আছে।</p>
+<h2>দ্রুত লিংক</h2>
+<table>
+<tr><th>#</th><th>Document</th><th>বিষয়</th></tr>
+<tr><td>—</td><td><a href="./STRUCTURE.md">STRUCTURE.md</a></td><td><strong>Project folder structure</strong>, layer diagram, request flow</td></tr>
+<tr><td>—</td><td><a href="./TECHNICAL_SYSTEM_DOCUMENTATION.md">TECHNICAL_SYSTEM_DOCUMENTATION.md</a></td><td>একীভূত technical overview</td></tr>
+<tr><td>—</td><td><a href="./sql/README.md">sql/README.md</a></td><td><strong>A–Z SQL scripts</strong> (Oracle + MySQL + queries)</td></tr>
+<tr><td>—</td><td><a href="./word/Padma_Inventory_Module_Documentation.doc">word/Padma_Inventory_Module_Documentation.doc</a></td><td>Microsoft Word-এ খোলার জন্য (HTML-based)</td></tr>
+</table>
+<h2>Module documents (<code>docs/modules/</code>)</h2>
+<table>
+<tr><th>Module</th><th>File</th></tr>
+<tr><td>Overview</td><td><a href="./modules/00-overview.md">modules/00-overview.md</a></td></tr>
+<tr><td>Architecture &amp; layers</td><td><a href="./modules/01-architecture.md">modules/01-architecture.md</a></td></tr>
+<tr><td>Login, users, permission</td><td><a href="./modules/02-auth-rbac.md">modules/02-auth-rbac.md</a></td></tr>
+<tr><td>Organization, branch, division</td><td><a href="./modules/03-organization.md">modules/03-organization.md</a></td></tr>
+<tr><td>Category, brand, supplier, unit</td><td><a href="./modules/04-master-data.md">modules/04-master-data.md</a></td></tr>
+<tr><td>Item master (<code>item_info</code>)</td><td><a href="./modules/05-item-master.md">modules/05-item-master.md</a></td></tr>
+<tr><td>Item inventory (manual entry)</td><td><a href="./modules/06-item-inventory.md">modules/06-item-inventory.md</a></td></tr>
+<tr><td>Branch CSV/Excel upload</td><td><a href="./modules/07-csv-upload.md">modules/07-csv-upload.md</a></td></tr>
+<tr><td>Stock In</td><td><a href="./modules/08-stock-in.md">modules/08-stock-in.md</a></td></tr>
+<tr><td>Stock Out, receive, transfer, return</td><td><a href="./modules/09-stock-out.md">modules/09-stock-out.md</a></td></tr>
+<tr><td>Item swap</td><td><a href="./modules/10-item-swap.md">modules/10-item-swap.md</a></td></tr>
+<tr><td>Inventory reports</td><td><a href="./modules/11-reports.md">modules/11-reports.md</a></td></tr>
+<tr><td>Requisition, quotation, challan, repair</td><td><a href="./modules/12-procurement.md">modules/12-procurement.md</a></td></tr>
+<tr><td>Warehouse &amp; dashboard</td><td><a href="./modules/13-warehouse-dashboard.md">modules/13-warehouse-dashboard.md</a></td></tr>
+<tr><td>Database, <code>SET_UNIQ_NO</code>, APIs</td><td><a href="./modules/14-data-codes-integration.md">modules/14-data-codes-integration.md</a></td></tr>
+<tr><td>Inventory barcode print</td><td><a href="./modules/15-inventory-barcode.md">modules/15-inventory-barcode.md</a></td></tr>
+</table>
+<h2>Legacy / supplementary (repo root)</h2>
+<p>• <code>STOCK_IN_OUT_IMPLEMENTATION.md</code></p>
+<p>• <code>CSV_UPLOAD_IMPLEMENTATION.md</code>, <code>CSV_UPLOAD_GUIDE.md</code></p>
+<p>• <code>SCHEMA_RECOMMENDATIONS.md</code></p>
+<h2>কীভাবে Word-এ convert করবেন</h2>
+<p>1. <code>docs/word/Padma_Inventory_Module_Documentation.doc</code> সরাসরি Word দিয়ে open করুন, <strong>অথবা</strong> 2. যেকোনো <code>docs/modules/*.md</code> ফাইল Word-এ open করে Save As <code>.docx</code> করুন, <strong>অথবা</strong> 3. <a href="https://pandoc.org/">Pandoc</a> থাকলে: <code>pandoc docs/modules/07-csv-upload.md -o csv-upload.docx</code></p>
+<div class="page-break"></div><h1>Padma Inventory — Project Structure</h1>
+<h2>1. High-level layers</h2>
+<pre>
+┌─────────────────────────────────────────────────────────────┐
+│  Browser (Blade + jQuery/Bootstrap)                         │
+└───────────────────────────┬─────────────────────────────────┘
+                            │ HTTP
+┌───────────────────────────▼─────────────────────────────────┐
+│  routes/web.php  →  Middleware (auth, CSRF)                 │
+└───────────────────────────┬─────────────────────────────────┘
+                            │
+┌───────────────────────────▼─────────────────────────────────┐
+│  app/Http/Controllers/Backend/*Controller.php               │
+│  Traits: UserAccessTraits, CommonTraits, FileUploadTraits   │
+└───────────────────────────┬─────────────────────────────────┘
+                            │
+        ┌───────────────────┼───────────────────┐
+        ▼                   ▼                   ▼
+┌───────────────┐  ┌───────────────┐  ┌───────────────────┐
+│ Interfaces/   │  │ app/Support/  │  │ DB:: / Eloquent   │
+│ Repo/Backend  │  │ SetUniqNo,    │  │ item_inventory,   │
+│               │  │ CSV Mapper    │  │ item_info, …      │
+└───────┬───────┘  └───────────────┘  └───────────────────┘
+        ▼
+┌─────────────────────────────────────────────────────────────┐
+│  app/Repository/Backend/*RepoImpl.php                       │
+└───────────────────────────┬─────────────────────────────────┘
+                            ▼
+┌─────────────────────────────────────────────────────────────┐
+│  MySQL (local) / Oracle PAD_INVENTORY (production)          │
+└─────────────────────────────────────────────────────────────┘
+</pre>
+<h2>2. Repository directory tree (core)</h2>
+<pre>
+app/
+├── Console/
+├── Exceptions/
+├── Exports/                    # Maatwebsite Excel export classes
+├── Helper/
+├── Http/
+│   ├── Controllers/
+│   │   ├── Auth/               # Login, password
+│   │   └── Backend/            # Inventory &amp; admin modules
+│   ├── Middleware/
+│   └── Kernel.php
+├── Interfaces/
+│   ├── EloquentRepositoryInterface.php
+│   └── Repo/Backend/           # *Repo.php contracts
+├── Models/                     # Eloquent (partial table coverage)
+├── Providers/
+│   ├── AppServiceProvider.php
+│   └── RepositoryServiceProvider.php   # Interface → Impl bindings
+├── Repository/Backend/         # *RepoImpl.php
+├── Support/
+│   ├── InventorySpreadsheetImportMapper.php
+│   ├── SetUniqNoFormatter.php
+│   ├── StockReferencePrefixBuilder.php
+│   └── WarrantyPeriodFormatter.php
+└── Traits/
+    ├── CommonTraits.php        # HRM API
+    ├── UserAccessTraits.php    # Menu permission
+    ├── FileUploadTraits.php
+    └── ImageUploadTraits.php
+</pre>
+<h2>3. Backend controllers (module map)</h2>
+<table>
+<tr><th>Controller</th><th>Module</th></tr>
+<tr><td><code>HomeController</code>, <code>DashboardLogController</code></td><td>Dashboard</td></tr>
+<tr><td><code>UsersController</code>, <code>UsersTypeController</code>, <code>UserPermissionController</code>, <code>MenuController</code></td><td>Auth &amp; RBAC</td></tr>
+<tr><td><code>OrganizationController</code>, <code>BranchController</code>, <code>DivisionController</code>, <code>DepartmentController</code></td><td>Organization</td></tr>
+<tr><td><code>CategoryController</code>, <code>BrandController</code>, <code>SupplierController</code>, <code>UnitController</code></td><td>Master data</td></tr>
+<tr><td><code>ItemController</code></td><td>Item master</td></tr>
+<tr><td><code>ItemsInventoryController</code></td><td>Manual inventory</td></tr>
+<tr><td><code>ItemsCsvUploadController</code>, <code>ItemsCsvReceiveController</code></td><td>Bulk upload</td></tr>
+<tr><td><code>StockInController</code></td><td>Stock in</td></tr>
+<tr><td><code>StockOutController</code></td><td>Stock out, transfer, return, receive</td></tr>
+<tr><td><code>ItemSwapController</code></td><td>Swap</td></tr>
+<tr><td><code>InventoryReportController</code></td><td>Reports</td></tr>
+<tr><td><code>RequisitionController</code>, <code>QuotationController</code>, <code>DeliveryChallanController</code>, <code>ProductReturnController</code></td><td>Procurement</td></tr>
+<tr><td><code>WarehouseController</code></td><td>Warehouse</td></tr>
+</table>
+<h2>4. Views structure</h2>
+<pre>
+resources/views/
+├── layouts/                    # app layout, sidebar
+├── auth/                       # login
+└── backend/
+    ├── branch/, category/, brand/, supplier/, unit/
+    ├── division/, department/, organization/
+    ├── menu/, menu_permission/, user/
+    ├── items_csv_upload/       # upload.blade.php, preview.blade.php
+    ├── items_csv_receive/
+    ├── item/                   # inventory, stock_in/out, swap, reports, …
+    └── quotation/
+</pre>
+<h2>5. Routes entry</h2>
+<p>• <strong>Single file:</strong> <code>routes/web.php</code> (all backend routes; no separate <code>api.php</code> inventory group for main UI).</p>
+<h2>6. Database artifacts</h2>
+<pre>
+database/
+├── migrations/                 # Laravel migrations + item_swap, transfer, quotation, …
+├── migrations/*.sql            # Oracle ALTER scripts (e.g. stock_in_no)
+└── seeders/
+</pre>
+<h2>7. Config (inventory-relevant)</h2>
+<table>
+<tr><th>File</th><th>Purpose</th></tr>
+<tr><td><code>config/database.php</code></td><td>mysql / oracle connections</td></tr>
+<tr><td><code>config/oracle.php</code></td><td>OCI8</td></tr>
+<tr><td><code>.env</code></td><td><code>DB_*</code>, <code>PADMA_HRM_API_URL</code>, <code>APP_URL</code></td></tr>
+</table>
+<h2>8. Public assets</h2>
+<pre>
+public/
+├── backend/assets/             # Admin theme, flags, plugins
+├── frontend/assets/
+└── tinymce/
+</pre>
+<h2>9. Request flow (typical CRUD module)</h2>
+<pre>
+GET /category
+  → CategoryController@index
+  → CategoryRepo::getCategory()
+  → view backend/category/category.blade.php
+  → userAccessFunction() for button visibility
+
+POST /category-save-update
+  → validate → CategoryRepo::saveUpdate()
+  → redirect + flash message
+</pre>
+<h2>10. Inventory data flow (simplified)</h2>
+<pre>
+item_info (master)
+       │
+       ▼
+item_inventory (store_type = SP)  ← manual entry / CSV import
+       │
+       ├── stock out (SO) + employee fields
+       ├── stock in (SI)
+       ├── transfer → item_transfer_logs
+       └── swap → item_swap_logs → receive
+</pre>
+<p>See module docs under <code>docs/modules/</code> for each area in detail.</p>
+<h2>SQL scripts (<code>docs/sql/</code>)</h2>
+<table>
+<tr><th>File</th><th>Role</th></tr>
+<tr><td><code>PAD_INVENTORY_A_TO_Z_ORACLE.sql</code></td><td>Oracle DDL (organization → procurement)</td></tr>
+<tr><td><code>PAD_INVENTORY_A_TO_Z_MYSQL.sql</code></td><td>MySQL bootstrap for XAMPP</td></tr>
+<tr><td><code>PAD_INVENTORY_QUERIES_A_TO_Z.sql</code></td><td>Reference SELECT queries</td></tr>
+</table>
+<p>See <a href="./sql/README.md">sql/README.md</a>.</p>
+<div class="page-break"></div><h1>Padma Inventory — Technical System Documentation</h1>
+<p><strong>Project:</strong> <code>padma_inventory</code> <strong>Purpose:</strong> Padma Bank Limited IT asset / inventory management (stock in, stock out, branch inventory, employee assignment, reporting, procurement support). <strong>Stack:</strong> Laravel 12, PHP 8.2+, Blade, jQuery/Bootstrap (backend UI), Oracle (production via <code>yajra/laravel-oci8</code>) or MySQL (local/XAMPP).</p>
+<p>&gt; <strong>Module-wise docs &amp; structure:</strong> see <a href="./README.md">docs/README.md</a>, <a href="./STRUCTURE.md">STRUCTURE.md</a>, and <a href="./modules/">docs/modules/</a>. &gt; <strong>Word file:</strong> <a href="./word/Padma_Inventory_Module_Documentation.doc">docs/word/Padma_Inventory_Module_Documentation.doc</a> (regenerate: <code>php docs/build_word_doc.php</code>).</p>
+<hr>
+<h2>1. System overview</h2>
+<p>The application is a monolithic Laravel web app. Business logic lives in <strong>Controllers</strong>, data access in <strong>Repository implementations</strong> bound to <strong>Interfaces</strong> in <code>RepositoryServiceProvider</code>. Most inventory state is stored in a central <strong><code>item_inventory</code></strong> table (and related master tables), differentiated by <strong><code>store_type</code></strong> and reference numbers (<code>set_uniq_no</code>, <code>stock_in_no</code>, <code>stock_out_no</code>).</p>
+<pre>
+flowchart TB
+    subgraph ui [Web UI]
+        Blade[Blade views]
+        Routes[routes/web.php]
+    end
+    subgraph app [Application layer]
+        Ctrl[Backend Controllers]
+        Repo[Repository Impl]
+        Support[Support classes]
+    end
+    subgraph data [Data]
+        Oracle[(Oracle / MySQL)]
+        HRM[Padma HRM API]
+    end
+    Blade --&gt; Routes --&gt; Ctrl
+    Ctrl --&gt; Repo
+    Ctrl --&gt; Support
+    Repo --&gt; Oracle
+    Ctrl --&gt; HRM
+</pre>
+<hr>
+<h2>2. Technology stack</h2>
+<table>
+<tr><th>Layer</th><th>Technology</th></tr>
+<tr><td>Framework</td><td>Laravel 12</td></tr>
+<tr><td>Language</td><td>PHP 8.2+</td></tr>
+<tr><td>Auth</td><td>Laravel UI (<code>Auth::routes</code>), session-based login</td></tr>
+<tr><td>DB drivers</td><td>MySQL (dev), Oracle OCI8 (typical production schema <code>PAD_INVENTORY</code>)</td></tr>
+<tr><td>Excel/CSV</td><td><code>maatwebsite/excel</code>, <code>PhpOffice/PhpSpreadsheet</code> (branch upload mapper)</td></tr>
+<tr><td>PDF</td><td><code>barryvdh/laravel-dompdf</code></td></tr>
+<tr><td>Barcode</td><td><code>milon/barcode</code>, <code>picqer/php-barcode-generator</code></td></tr>
+<tr><td>API auth (optional)</td><td>JWT (<code>tymon/jwt-auth</code>), Sanctum</td></tr>
+<tr><td>Social login</td><td>Laravel Socialite (Google/Facebook controllers present)</td></tr>
+</table>
+<p><strong>Key Composer packages:</strong> see <code>composer.json</code>.</p>
+<hr>
+<h2>3. Project structure</h2>
+<pre>
+padma_inventory/
+├── app/
+│   ├── Http/Controllers/Backend/   # Feature controllers
+│   ├── Http/Controllers/Auth/      # Login, password reset
+│   ├── Interfaces/Repo/Backend/    # Repository contracts
+│   ├── Repository/Backend/         # Repository implementations
+│   ├── Models/                     # Eloquent models (subset of tables)
+│   ├── Support/                    # Cross-cutting helpers (SET_UNIQ_NO, CSV mapper, stock refs)
+│   ├── Traits/                     # UserAccessTraits, CommonTraits (HRM API)
+│   └── Providers/RepositoryServiceProvider.php
+├── routes/web.php                  # All primary HTTP routes
+├── resources/views/backend/        # Admin/inventory UI
+├── database/migrations/            # Laravel migrations + some .sql scripts
+└── docs/                           # This document and related guides
+</pre>
+<hr>
+<h2>4. Architecture patterns</h2>
+<h3>4.1 Repository pattern</h3>
+<p>• <strong>Interface:</strong> <code>app/Interfaces/Repo/Backend/{Feature}Repo.php</code></p>
+<p>• <strong>Implementation:</strong> <code>app/Repository/Backend/{Feature}RepoImpl.php</code></p>
+<p>• <strong>Registration:</strong> <code>app/Providers/RepositoryServiceProvider.php</code></p>
+<p>Controllers depend on interfaces; implementations extend <code>EloquentBaseRepository</code> where applicable.</p>
+<h3>4.2 Access control</h3>
+<p>• <strong><code>UserAccessTraits::userAccessFunction()</code></strong> resolves menu slug from URL and loads <strong><code>access_menu</code></strong> row for the user’s <strong><code>user_types</code></strong> (view/add/edit/delete flags).</p>
+<p>• Controllers call <code>$this-&gt;userAccessFunction()</code> and pass <code>$userAccessData</code> to views.</p>
+<p>• Many backend controllers use <code>$this-&gt;middleware(&#039;auth&#039;)</code>.</p>
+<h3>4.3 Multi-tenancy scope</h3>
+<p>Most queries filter by <strong><code>org_id</code></strong> from <code>auth()-&gt;user()-&gt;org_id</code> and often <strong><code>branch_id</code></strong> / <strong><code>hr_branch_id</code></strong> on the <code>branch</code> table.</p>
+<hr>
+<h2>5. Core data model</h2>
+<h3>5.1 Master data</h3>
+<table>
+<tr><th>Table / area</th><th>Purpose</th></tr>
+<tr><td><code>organization</code></td><td>Organization master</td></tr>
+<tr><td><code>branch</code></td><td>Branches; links to HR via <code>hr_branch_id</code></td></tr>
+<tr><td><code>division</code>, <code>department</code></td><td>Org structure</td></tr>
+<tr><td><code>category</code> / <code>categories</code></td><td>Item categories (<code>category_title</code>, <code>category</code>)</td></tr>
+<tr><td><code>brand</code> / <code>brands</code></td><td>Brands</td></tr>
+<tr><td><code>supplier</code> / <code>suppliers</code></td><td>Suppliers</td></tr>
+<tr><td><code>item_info</code></td><td>Item master (title, category, brand, image, etc.)</td></tr>
+<tr><td><code>unit</code></td><td>Unit/size master</td></tr>
+<tr><td><code>users</code>, <code>user_types</code></td><td>Application users</td></tr>
+<tr><td><code>backend_menu</code>, <code>access_menu</code></td><td>Menu and RBAC</td></tr>
+</table>
+<p>&gt; Note: Legacy naming mixes singular table names in queries (<code>item_info</code>, <code>category</code>) with migration names (<code>items</code>, <code>categories</code>). Code predominantly uses <strong><code>item_info</code></strong> and <strong><code>item_inventory</code></strong>.</p>
+<h3>5.2 Inventory fact table: <code>item_inventory</code></h3>
+<p>Single table holds stock positions and movement-related rows. Important columns (conceptual):</p>
+<table>
+<tr><th>Field</th><th>Role</th></tr>
+<tr><td><code>org_id</code>, <code>branch_id</code></td><td>Scope</td></tr>
+<tr><td><code>item_id</code>, <code>category_id</code>, <code>brand_id</code>, <code>supplier_id</code></td><td>References</td></tr>
+<tr><td><code>store_type</code></td><td><strong><code>SP</code></strong> = stock position / package row (inventory entry), <strong><code>SI</code></strong> = stock in transaction, <strong><code>SO</code></strong> = stock out transaction</td></tr>
+<tr><td><code>set_uniq_no</code></td><td>Device/set identifier (e.g. <code>PBL-DK-5007</code>)</td></tr>
+<tr><td><code>stock_in_no</code>, <code>stock_out_no</code></td><td>Document references</td></tr>
+<tr><td><code>uniq_serial_no</code></td><td>Hardware serial</td></tr>
+<tr><td><code>quantity</code>, <code>price</code>, <code>condition</code>, specs (<code>ram</code>, <code>storage</code>, <code>processor</code>, …)</td></tr>
+<tr><td><code>from_employee_id</code>, <code>to_employee_id</code>, branch/division from/to</td><td>Assignment &amp; movement</td></tr>
+<tr><td><code>warehouse</code>, <code>remarks</code>, <code>status</code></td><td><code>status &lt;&gt; 9</code> typically means active</td></tr>
+</table>
+<p><strong>Design rationale:</strong> Stock in and stock out share one table; reports filter on <code>store_type</code> and reference numbers. See <code>STOCK_IN_OUT_IMPLEMENTATION.md</code> and <code>SCHEMA_RECOMMENDATIONS.md</code>.</p>
+<h3>5.3 Audit / movement logs</h3>
+<table>
+<tr><th>Table</th><th>Purpose</th></tr>
+<tr><td><code>item_transfer_logs</code></td><td>Employee-to-employee transfer within branch (from <code>/transfer-items</code>)</td></tr>
+<tr><td><code>item_swap_logs</code></td><td>Pending swap between employees; receiver confirms on <code>/receive-swap-items</code></td></tr>
+<tr><td><code>stock_out_gate_pass_logs</code></td><td>Gate pass print audit</td></tr>
+</table>
+<hr>
+<h2>6. Identifiers and codes</h2>
+<h3>6.1 <code>SET_UNIQ_NO</code> — <code>App\Support\SetUniqNoFormatter</code></h3>
+<p>• Format: <strong><code>PBL-{abbrev}-{sequence}</code></strong> (e.g. <code>PBL-DK-5007</code>).</p>
+<p>• Abbreviation derived from item title (desktop → <code>DK</code>, laptop → <code>LP</code>, etc.).</p>
+<p>• Sequence scoped per org/branch; considers existing <code>item_inventory</code> rows with <code>status &lt;&gt; 9</code>.</p>
+<p>Used by: manual inventory entry, CSV import preview/import, spec component rows sharing one set code.</p>
+<h3>6.2 Stock reference numbers — <code>App\Support\StockReferencePrefixBuilder</code></h3>
+<p>Builds <strong><code>stock_in_no</code></strong> / related prefixed strings from branch/division tags + <code>set_uniq_no</code>.</p>
+<h3>6.3 Item codes</h3>
+<p><code>UserAccessTraits::generateRandomItemCode()</code> and item save logic in <code>ItemController</code> generate org-specific item codes from branch/category context.</p>
+<hr>
+<h2>7. Functional modules</h2>
+<h3>7.1 Dashboard</h3>
+<table>
+<tr><th>Route</th><th>Controller</th><th>Description</th></tr>
+<tr><td><code>/dashboard</code></td><td><code>HomeController</code></td><td>Main dashboard</td></tr>
+<tr><td><code>/dashboard-total-count-log</code></td><td><code>DashboardLogController</code></td><td>Aggregate counts</td></tr>
+<tr><td><code>/dashboard-*-details</code></td><td><code>DashboardLogController</code></td><td>Category/item/supplier drill-down</td></tr>
+</table>
+<h3>7.2 Administration</h3>
+<table>
+<tr><th>Module</th><th>Routes (prefix)</th><th>Controller</th></tr>
+<tr><td>Users</td><td><code>/users</code>, <code>/user-*</code></td><td><code>UsersController</code></td></tr>
+<tr><td>User types</td><td><code>/user-type</code></td><td><code>UsersTypeController</code></td></tr>
+<tr><td>Permissions</td><td><code>/permission</code>, <code>/give-permission</code></td><td><code>UserPermissionController</code></td></tr>
+<tr><td>Backend menu</td><td><code>/backend-menu</code></td><td><code>MenuController</code></td></tr>
+<tr><td>Organization</td><td><code>/organization</code></td><td><code>OrganizationController</code></td></tr>
+<tr><td>Branch</td><td><code>/branch</code></td><td><code>BranchController</code></td></tr>
+<tr><td>Category</td><td><code>/category</code></td><td><code>CategoryController</code></td></tr>
+<tr><td>Brand</td><td><code>/brand</code></td><td><code>BrandController</code></td></tr>
+<tr><td>Supplier</td><td><code>/supplier</code></td><td><code>SupplierController</code></td></tr>
+<tr><td>Unit</td><td><code>/size-unit</code></td><td><code>UnitController</code></td></tr>
+<tr><td>Division / Department</td><td><code>/division</code>, <code>/department</code></td><td><code>DivisionController</code>, <code>DepartmentController</code></td></tr>
+<tr><td>Warehouse</td><td><code>/add-warehouse</code></td><td><code>WarehouseController</code></td></tr>
+</table>
+<h3>7.3 Item master</h3>
+<table>
+<tr><th>Route</th><th>Controller</th><th>Description</th></tr>
+<tr><td><code>/items</code></td><td><code>ItemController</code></td><td>CRUD item master (<code>item_info</code>)</td></tr>
+<tr><td><code>/items-by-category/{id}</code></td><td><code>ItemController</code></td><td>AJAX items by category</td></tr>
+</table>
+<h3>7.4 Item inventory (manual entry)</h3>
+<table>
+<tr><th>Route</th><th>Controller</th><th>Description</th></tr>
+<tr><td><code>/items-inventory</code></td><td><code>ItemsInventoryController</code></td><td>Create inventory (packages: main + RAM/storage/processor rows)</td></tr>
+<tr><td><code>/items-inventory-list</code></td><td><code>ItemsInventoryController</code></td><td>List</td></tr>
+<tr><td><code>/items-inventory-edit/{id}</code></td><td><code>ItemsInventoryController</code></td><td>Edit; loads specs by <code>set_uniq_no</code></td></tr>
+<tr><td>POST update/delete/active</td><td><code>ItemsInventoryController</code></td><td>CRUD</td></tr>
+</table>
+<p><strong>Behaviour highlights:</strong></p>
+<p>• Item select can auto-fill <strong>category</strong> (<code>data-category-id</code>) and default <strong>condition</strong> to <code>good</code>.</p>
+<p>• Specifications stored as separate <code>item_inventory</code> rows with same <code>set_uniq_no</code>, <code>store_type = SP</code>.</p>
+<h3>7.5 Branch Excel/CSV bulk upload</h3>
+<table>
+<tr><th>Route</th><th>Name</th><th>Step</th></tr>
+<tr><td><code>GET /items-inventory-csv-upload</code></td><td><code>items-inventory-csv-upload</code></td><td>Select <strong>branch</strong>, upload file</td></tr>
+<tr><td><code>POST /items-inventory-csv-upload-process</code></td><td><code>items-inventory-csv-upload-process</code></td><td>Parse → session preview</td></tr>
+<tr><td>Preview view</td><td>—</td><td>Edit grid, confirm</td></tr>
+<tr><td><code>POST /items-inventory-csv-store</code></td><td><code>items-inventory-csv-store</code></td><td>DB import + export session</td></tr>
+<tr><td><code>GET /items-inventory-csv-export-result</code></td><td><code>items-inventory-csv-export-result</code></td><td>Download result Excel</td></tr>
+<tr><td><code>GET /items-inventory-csv-cancel</code></td><td><code>items-inventory-csv-cancel</code></td><td>Clear session</td></tr>
+</table>
+<p><strong>Parser:</strong> <code>App\Support\InventorySpreadsheetImportMapper</code></p>
+<p>• Detects header row and column aliases (Product Name, Serial No, Employee ID, wide matrix layouts).</p>
+<p>• Formats: <strong><code>branch_inventory</code></strong>, <strong><code>wide_asset_matrix</code></strong> (Uttara-style laptop/monitor columns).</p>
+<p>• <strong>Category rule (branch import):</strong> default category label <strong><code>IT Equipment</code></strong> for all preview/import rows (matched to <code>category</code> master when exists).</p>
+<p>• <strong><code>SET_UNIQ_NO</code>:</strong> auto-generated in preview; conflict checks on import.</p>
+<p>• <strong>Controller:</strong> <code>ItemsCsvUploadController</code> — session keys: <code>csv_preview_data</code>, <code>csv_upload_branch_id</code>, <code>csv_import_meta</code>, <code>csv_upload_export_rows</code>.</p>
+<p>See also: <code>CSV_UPLOAD_IMPLEMENTATION.md</code>, <code>CSV_UPLOAD_GUIDE.md</code>.</p>
+<h3>7.6 CSV receive (legacy/alternate)</h3>
+<table>
+<tr><th>Route</th><th>Controller</th></tr>
+<tr><td><code>/items-inventory-csv-receive</code></td><td><code>ItemsCsvReceiveController</code></td></tr>
+</table>
+<h3>7.7 Stock out</h3>
+<table>
+<tr><th>Route</th><th>Description</th></tr>
+<tr><td><code>/stock-out</code>, <code>/stock-out-save-update</code></td><td>Issue items (<code>store_type = SO</code>)</td></tr>
+<tr><td><code>/stock-out-list</code>, <code>/stock-out-invoice/{no}</code></td><td>Listing &amp; invoice</td></tr>
+<tr><td><code>/receive-stock</code></td><td>Receive returned stock</td></tr>
+<tr><td><code>/transfer-items</code></td><td>Transfer between employees (writes <code>item_transfer_logs</code>, remark on inventory)</td></tr>
+<tr><td><code>/return-to-division</code></td><td>Return flow to division</td></tr>
+</table>
+<p><strong>Repository:</strong> <code>StockOutRepo</code> / <code>StockOutRepoImpl</code> <strong>Controller:</strong> <code>StockOutController</code> <strong>HRM:</strong> Employee lookup via <code>CommonTraits::employeeInfo()</code> → <code>PADMA_HRM_API_URL</code>.</p>
+<h3>7.8 Item swap (same branch / division)</h3>
+<table>
+<tr><th>Route</th><th>Description</th></tr>
+<tr><td><code>GET /swap-items</code></td><td>Initiate swap (from employee → to employee)</td></tr>
+<tr><td><code>POST /swap-items-save</code></td><td>Creates <code>item_swap_logs</code>, marks inventory pending</td></tr>
+<tr><td><code>GET /receive-swap-items</code></td><td>Receiver confirms</td></tr>
+<tr><td><code>POST /receive-swap-items-save</code></td><td>Completes swap; <code>receive_remarks</code></td></tr>
+</table>
+<p><strong>Repository:</strong> <code>ItemSwapRepo</code> / <code>ItemSwapRepoImpl</code> <strong>Model/table:</strong> <code>item_swap_logs</code> (status: 1 pending, 2 received, 3 cancelled)</p>
+<h3>7.9 Stock in</h3>
+<table>
+<tr><th>Route</th><th>Description</th></tr>
+<tr><td><code>/stock-in</code>, <code>/stock-in-save-update</code></td><td>Stock in (<code>store_type = SI</code>)</td></tr>
+<tr><td><code>/stock-in-list</code>, <code>/stock-in-invoice/{no}</code></td><td>List &amp; invoice</td></tr>
+</table>
+<p><strong>Repository:</strong> <code>StockInRepo</code> / <code>StockInRepoImpl</code> (binding may need verification in <code>RepositoryServiceProvider</code> if DI fails in some environments).</p>
+<h3>7.10 Inventory reporting</h3>
+<table>
+<tr><th>Route</th><th>Report</th></tr>
+<tr><td><code>/inventory-report</code></td><td>Stock in/out summary</td></tr>
+<tr><td><code>/inventory-detail-report</code></td><td>Detail grid</td></tr>
+<tr><td><code>/inventory-summary</code></td><td>Division/branch summary</td></tr>
+<tr><td><code>/inventory-employee-report</code></td><td>By employee</td></tr>
+<tr><td><code>*-export-excel</code>, <code>*-export-pdf</code></td><td>Exports via Maatwebsite Excel / DomPDF</td></tr>
+</table>
+<p><strong>Repository:</strong> <code>InventoryReportRepoImpl</code></p>
+<h3>7.11 Procurement-related</h3>
+<table>
+<tr><th>Module</th><th>Routes</th><th>Controller</th></tr>
+<tr><td>Requisition</td><td><code>/create-requisition</code>, <code>/requisition-list</code></td><td><code>RequisitionController</code></td></tr>
+<tr><td>Quotation</td><td><code>/create-quotation</code>, <code>/quotation-approve</code></td><td><code>QuotationController</code></td></tr>
+<tr><td>Delivery challan</td><td><code>/delivery-challan</code></td><td><code>DeliveryChallanController</code></td></tr>
+<tr><td>Product repair</td><td><code>/product-repair</code></td><td><code>ProductReturnController</code></td></tr>
+</table>
+<p>Tables: <code>requisitions</code>, <code>requisition_items</code>, <code>quotations</code>, <code>quotation_items</code>, <code>quotation_approvals</code>, <code>delivery_challans</code>, <code>delivery_challan_items</code>, <code>product_returns</code>, etc. (see <code>database/migrations/</code>).</p>
+<h3>7.12 Inventory barcode (SET_UNIQ_NO labels)</h3>
+<table>
+<tr><th>Route</th><th>Controller</th><th>Description</th></tr>
+<tr><td><code>GET /barcode-generate</code>, <code>/inventory-barcode</code></td><td><code>InventoryBarcodeController@index</code></td><td>Filter form (division/branch, item, QTY, page layout)</td></tr>
+<tr><td><code>POST /inventory-barcode-generate</code></td><td><code>InventoryBarcodeController@generate</code></td><td>Build CODE128 labels; preview on same page</td></tr>
+<tr><td>—</td><td>Print button (JS)</td><td>Thermal-style <strong>one label per page</strong>, vertical preview</td></tr>
+</table>
+<p><strong>Repository:</strong> <code>InventoryBarcodeRepo</code> / <code>InventoryBarcodeRepoImpl</code> <strong>Support:</strong> <code>BarcodeLabelSizeCatalog</code> (Word/Avery-style mm sizes) <strong>Views:</strong> <code>resources/views/backend/item/inventory_barcode/</code> <strong>Oracle note:</strong> non-empty <code>SET_UNIQ_NO</code> via <code>LENGTH(TRIM(...)) &gt; 0</code>.</p>
+<p>Module detail: <a href="./modules/15-inventory-barcode.md">docs/modules/15-inventory-barcode.md</a>.</p>
+<hr>
+<h2>8. Database scripts (A to Z)</h2>
+<table>
+<tr><th>Script</th><th>Use</th></tr>
+<tr><td><a href="./sql/PAD_INVENTORY_A_TO_Z_ORACLE.sql">docs/sql/PAD_INVENTORY_A_TO_Z_ORACLE.sql</a></td><td>Oracle schema reference</td></tr>
+<tr><td><a href="./sql/PAD_INVENTORY_A_TO_Z_MYSQL.sql">docs/sql/PAD_INVENTORY_A_TO_Z_MYSQL.sql</a></td><td>MySQL local bootstrap</td></tr>
+<tr><td><a href="./sql/PAD_INVENTORY_QUERIES_A_TO_Z.sql">docs/sql/PAD_INVENTORY_QUERIES_A_TO_Z.sql</a></td><td>Inventory, barcode, stock queries</td></tr>
+<tr><td><a href="./sql/README.md">docs/sql/README.md</a></td><td>Execution notes</td></tr>
+</table>
+<p>Legacy SQL also under <code>database/*.sql</code> and Laravel <code>database/migrations/</code>.</p>
+<hr>
+<h2>9. External integration: Padma HRM API</h2>
+<p><strong>Trait:</strong> <code>App\Traits\CommonTraits</code></p>
+<p>• <strong>Env:</strong> <code>PADMA_HRM_API_URL</code></p>
+<p>• <strong>Flow:</strong> Service login → bearer token → GET endpoints such as <code>/api/v3/user-info-padmaportal?emp_id=...</code></p>
+<p>• <strong>Used by:</strong> Stock out, transfer, swap, receive flows for employee name, branch, division validation.</p>
+<p>Credentials for the API login are configured in code/env; production should use <strong>environment secrets</strong>, not hardcoded values in the repository.</p>
+<hr>
+<h2>10. Request lifecycle (example: CSV import)</h2>
+<pre>
+sequenceDiagram
+    participant U as User
+    participant C as ItemsCsvUploadController
+    participant M as InventorySpreadsheetImportMapper
+    participant S as Session
+    participant DB as Database
+
+    U-&gt;&gt;C: POST upload (file, branch_id)
+    C-&gt;&gt;M: parseFile(path)
+    M--&gt;&gt;C: rows, column_map, format
+    C-&gt;&gt;C: resolveCategory → IT Equipment
+    C-&gt;&gt;C: assignPreviewSetUniqNumbers
+    C-&gt;&gt;S: csv_preview_data
+    C--&gt;&gt;U: preview.blade.php
+    U-&gt;&gt;C: POST storeCsv (edited grid)
+    C-&gt;&gt;DB: transaction: item_info, item_inventory, specs
+    C--&gt;&gt;U: success + export download
+</pre>
+<hr>
+<h2>11. Configuration and deployment</h2>
+<h3>10.1 Environment (<code>.env</code>)</h3>
+<table>
+<tr><th>Variable</th><th>Purpose</th></tr>
+<tr><td><code>APP_URL</code>, <code>APP_ENV</code>, <code>APP_DEBUG</code></td><td>App base</td></tr>
+<tr><td><code>DB_CONNECTION</code>, <code>DB_*</code></td><td>MySQL local or <code>oracle</code> connection</td></tr>
+<tr><td><code>PADMA_HRM_API_URL</code></td><td>Employee API base URL</td></tr>
+</table>
+<p>Oracle-specific: <code>config/oracle.php</code>, package <code>yajra/laravel-oci8</code>.</p>
+<h3>10.2 Local development (XAMPP)</h3>
+<p>1. PHP 8.2+, Composer install 2. <code>cp .env.example .env</code>, configure DB 3. <code>php artisan key:generate</code> 4. <code>php artisan serve</code> → <code>http://127.0.0.1:8000</code> 5. Run migrations / legacy SQL scripts as required for your DB (<code>add_stock_in_no_to_item_inventory.sql</code>, swap/transfer migrations).</p>
+<h3>10.3 Web server</h3>
+<p>Point document root to <code>public/</code>. Ensure <code>storage/</code> and <code>bootstrap/cache/</code> are writable.</p>
+<hr>
+<h2>12. Security notes</h2>
+<p>• CSRF on POST forms (<code>VerifyCsrfToken</code>).</p>
+<p>• Session authentication for backend routes using <code>auth</code> middleware.</p>
+<p>• Menu-level permissions via <code>access_menu</code>; not all routes may enforce granular checks—review per module for hardening.</p>
+<p>• File upload: CSV/XLSX size and extension validation in <code>ItemsCsvUploadController</code>.</p>
+<p>• HRM API credentials must be rotated and stored in env/secrets manager.</p>
+<hr>
+<h2>13. Related documentation in repo</h2>
+<table>
+<tr><th>File</th><th>Topic</th></tr>
+<tr><td><code>STOCK_IN_OUT_IMPLEMENTATION.md</code></td><td>Stock in/out on <code>item_inventory</code></td></tr>
+<tr><td><code>SCHEMA_RECOMMENDATIONS.md</code></td><td>Table usage patterns</td></tr>
+<tr><td><code>CSV_UPLOAD_IMPLEMENTATION.md</code></td><td>CSV feature (partially superseded by branch Excel mapper)</td></tr>
+<tr><td><code>CSV_UPLOAD_GUIDE.md</code></td><td>User-facing upload guide</td></tr>
+<tr><td><code>IMPLEMENTATION_SUMMARY.md</code></td><td>Historical implementation notes</td></tr>
+</table>
+<hr>
+<h2>14. Key classes quick reference</h2>
+<table>
+<tr><th>Class</th><th>Responsibility</th></tr>
+<tr><td><code>ItemsInventoryController</code></td><td>Manual inventory CRUD, specs, edit modal</td></tr>
+<tr><td><code>ItemsCsvUploadController</code></td><td>Branch spreadsheet upload, preview, import</td></tr>
+<tr><td><code>InventorySpreadsheetImportMapper</code></td><td>Header detection, row mapping, IT Equipment default</td></tr>
+<tr><td><code>SetUniqNoFormatter</code></td><td>PBL-style set codes</td></tr>
+<tr><td><code>StockReferencePrefixBuilder</code></td><td>Stock in/out number prefixes</td></tr>
+<tr><td><code>StockOutController</code> / <code>StockOutRepoImpl</code></td><td>Stock out, transfer, return</td></tr>
+<tr><td><code>ItemSwapController</code> / <code>ItemSwapRepoImpl</code></td><td>Swap initiate/receive</td></tr>
+<tr><td><code>StockInController</code> / <code>StockInRepoImpl</code></td><td>Stock in</td></tr>
+<tr><td><code>InventoryReportController</code></td><td>Reports &amp; exports</td></tr>
+<tr><td><code>InventoryBarcodeController</code> / <code>InventoryBarcodeRepoImpl</code></td><td>Branch/division barcode labels</td></tr>
+<tr><td><code>BarcodeLabelSizeCatalog</code></td><td>Label sheet dimensions for print CSS</td></tr>
+</table>
+<hr>
+<h2>15. Document maintenance</h2>
+<p>• <strong>Version:</strong> 1.1 (March 2026 — barcode module + A–Z SQL)  </p>
+<p>• <strong>Update when:</strong> New routes/modules added, <code>store_type</code> semantics change, CSV category rules change, or Oracle schema migrations applied.</p>
+<p>For module-specific deep dives, extend this file or add <code>docs/modules/{module}.md</code>.</p>
+<div class="page-break"></div><h1>Module 00 — System Overview</h1>
+<h2>Purpose</h2>
+<p><strong>Padma Inventory</strong> (<code>padma_inventory</code>) is Padma Bank Limited’s IT asset inventory system: register devices, assign to employees/branches, stock in/out, branch bulk upload, swap/transfer, and reporting.</p>
+<h2>Users</h2>
+<p>• IT / branch inventory staff  </p>
+<p>• Admin (users, menus, permissions)  </p>
+<p>• Procurement (requisition, quotation — partial workflow)</p>
+<h2>Technology</h2>
+<p>• <strong>Backend:</strong> Laravel 12, PHP 8.2+  </p>
+<p>• <strong>UI:</strong> Blade, Bootstrap, jQuery  </p>
+<p>• <strong>DB:</strong> MySQL (dev), Oracle (production typical)  </p>
+<p>• <strong>Integrations:</strong> Padma HRM API (employee lookup)</p>
+<h2>Core concept</h2>
+<p>Almost all quantity and assignment state lives in <strong><code>item_inventory</code></strong>, split by <strong><code>store_type</code></strong>:</p>
+<table>
+<tr><th>Code</th><th>Meaning</th></tr>
+<tr><td><code>SP</code></td><td>Stock position / package (main inventory row + spec rows)</td></tr>
+<tr><td><code>SI</code></td><td>Stock in document line</td></tr>
+<tr><td><code>SO</code></td><td>Stock out document line</td></tr>
+</table>
+<p>Device identity: <strong><code>set_uniq_no</code></strong> (e.g. <code>PBL-DK-5007</code>), <strong><code>uniq_serial_no</code></strong>.</p>
+<h2>Documentation map</h2>
+<p>See <a href="../README.md">docs/README.md</a> for all module files and <a href="../STRUCTURE.md">STRUCTURE.md</a> for folder layout.</p>
+<div class="page-break"></div><h1>Module 01 — Architecture</h1>
+<h2>Pattern</h2>
+<p><strong>MVC + Repository</strong></p>
+<p>• Controllers: HTTP, validation, session, view data  </p>
+<p>• <code>Interfaces/Repo/Backend/*Repo.php</code>: contracts  </p>
+<p>• <code>Repository/Backend/*RepoImpl.php</code>: queries &amp; persistence  </p>
+<p>• Bindings: <code>app/Providers/RepositoryServiceProvider.php</code></p>
+<h2>Cross-cutting</h2>
+<table>
+<tr><th>Component</th><th>Role</th></tr>
+<tr><td><code>UserAccessTraits</code></td><td>Menu slug → <code>access_menu</code> (view/add/edit/delete)</td></tr>
+<tr><td><code>CommonTraits</code></td><td>HRM API token + employee JSON</td></tr>
+<tr><td><code>app/Support/*</code></td><td>SET_UNIQ_NO, CSV mapper, stock number prefixes</td></tr>
+</table>
+<h2>Security</h2>
+<p>• Session login (<code>auth</code> middleware on most backend controllers)  </p>
+<p>• CSRF on POST  </p>
+<p>• Org scoping: <code>auth()-&gt;user()-&gt;org_id</code></p>
+<h2>Diagram</h2>
+<pre>
+Controller → Repo Interface → RepoImpl → DB
+         ↘ Support helpers
+         ↘ Traits (HRM, access)
+</pre>
+<p>Full structure tree: <a href="../STRUCTURE.md">STRUCTURE.md</a>.</p>
+<div class="page-break"></div><h1>Module 02 — Authentication &amp; RBAC</h1>
+<h2>Login</h2>
+<table>
+<tr><th>Item</th><th>Detail</th></tr>
+<tr><td>Routes</td><td><code>/login</code>, <code>Auth::routes([&#039;register&#039; =&gt; false])</code>, <code>/logout</code></td></tr>
+<tr><td>Controller</td><td><code>App\Http\Controllers\Auth\LoginController</code></td></tr>
+<tr><td>Views</td><td><code>resources/views/auth/*</code></td></tr>
+</table>
+<h2>Users</h2>
+<table>
+<tr><th>Route</th><th>Action</th></tr>
+<tr><td><code>/users</code></td><td>List / manage users</td></tr>
+<tr><td><code>/user-save-update</code></td><td>Create/update</td></tr>
+<tr><td><code>/user-edit/{id}</code>, <code>/user-delete/{id}</code></td><td>Edit/delete</td></tr>
+<tr><td><code>/user-active/{id}</code>, <code>/user-in-active/{id}</code></td><td>Status</td></tr>
+</table>
+<p><strong>Controller:</strong> <code>UsersController</code> <strong>Repo:</strong> <code>UserRepo</code> / <code>UserRepoImpl</code></p>
+<h2>User types</h2>
+<table>
+<tr><th>Route</th><th>Controller</th></tr>
+<tr><td><code>/user-type</code></td><td><code>UsersTypeController</code></td></tr>
+</table>
+<p>Field <strong><code>user_types</code></strong> on user links to permission rows.</p>
+<h2>Menu permission</h2>
+<table>
+<tr><th>Route</th><th>Controller</th></tr>
+<tr><td><code>/permission</code></td><td><code>UserPermissionController</code></td></tr>
+<tr><td><code>/show-permission-menu/{permission_type}</code></td><td>Menu tree for type</td></tr>
+<tr><td><code>/give-permission</code></td><td>Save <code>access_menu</code></td></tr>
+</table>
+<p><strong>Tables:</strong> <code>backend_menu</code>, <code>access_menu</code></p>
+<h2>Backend menu CRUD</h2>
+<table>
+<tr><th>Route</th><th>Controller</th></tr>
+<tr><td><code>/backend-menu</code></td><td><code>MenuController</code></td></tr>
+</table>
+<p>Menu <strong><code>slug</code></strong> must match first URL segment for <code>UserAccessTraits::userAccessFunction()</code> (see trait for IP-based segment index).</p>
+<h2>Task login</h2>
+<table>
+<tr><th>Route</th><th><code>/task-login</code> — <code>TaskLoginController</code></th></tr>
+</table>
+<div class="page-break"></div><h1>Module 03 — Organization Structure</h1>
+<h2>Organization</h2>
+<table>
+<tr><th>Route</th><th>Controller</th></tr>
+<tr><td><code>/organization</code></td><td><code>OrganizationController</code></td></tr>
+</table>
+<p><strong>Repo:</strong> <code>OrganizationRepo</code> / <code>OrganizationRepoImpl</code></p>
+<h2>Branch</h2>
+<table>
+<tr><th>Route</th><th>Controller</th></tr>
+<tr><td><code>/branch</code></td><td><code>BranchController</code></td></tr>
+</table>
+<p><strong>Important fields:</strong> <code>hr_branch_id</code> (maps to HRM branch), <code>branch_name</code>, <code>status</code></p>
+<p>Used by: inventory scoping, CSV upload branch select, stock reference prefixes.</p>
+<h2>Division</h2>
+<table>
+<tr><th>Route</th><th>Controller</th></tr>
+<tr><td><code>/division</code></td><td><code>DivisionController</code></td></tr>
+</table>
+<h2>Department</h2>
+<table>
+<tr><th>Route</th><th>Controller</th></tr>
+<tr><td><code>/department</code></td><td><code>DepartmentController</code></td></tr>
+<tr><td><code>/department-by-division-id/{id}</code></td><td>AJAX departments</td></tr>
+</table>
+<p><strong>Repo:</strong> <code>DivisionRepo</code>, <code>DepartmentRepo</code></p>
+<h2>Data relationships (logical)</h2>
+<pre>
+organization (org_id)
+    └── branch (branch_id / hr_branch_id)
+            └── division
+                    └── department
+</pre>
+<p>Inventory rows carry <code>org_id</code>, <code>branch_id</code>; movements may store <code>from_*</code> / <code>to_*</code> branch/division/employee.</p>
+<div class="page-break"></div><h1>Module 04 — Master Data (Category, Brand, Supplier, Unit)</h1>
+<h2>Category</h2>
+<table>
+<tr><th>Route</th><th>Controller</th></tr>
+<tr><td><code>/category</code></td><td><code>CategoryController</code></td></tr>
+<tr><td><code>/category-import-excel</code></td><td>Excel import</td></tr>
+</table>
+<p><strong>Table:</strong> <code>category</code> — fields <code>category_title</code>, <code>category</code>, <code>org_id</code>, <code>status</code> <strong>Repo:</strong> <code>CategoryRepo</code> / <code>CategoryRepoImpl</code></p>
+<p><strong>Branch CSV default category:</strong> <code>IT Equipment</code> (see module 07).</p>
+<h2>Brand</h2>
+<table>
+<tr><th>Route</th><th><code>/brand</code> — <code>BrandController</code></th></tr>
+</table>
+<p><strong>Repo:</strong> <code>BrandRepo</code> / <code>BrandRepoImpl</code></p>
+<h2>Supplier</h2>
+<table>
+<tr><th>Route</th><th><code>/supplier</code> — <code>SupplierController</code></th></tr>
+</table>
+<p><strong>Repo:</strong> <code>SupplierRepo</code> / <code>SupplierRepoImpl</code></p>
+<h2>Unit (size)</h2>
+<table>
+<tr><th>Route</th><th><code>/size-unit</code> — <code>UnitController</code></th></tr>
+</table>
+<p><strong>Repo:</strong> <code>UnitRepo</code> / <code>UnitRepoImpl</code></p>
+<h2>Views</h2>
+<pre>
+resources/views/backend/category/category.blade.php
+resources/views/backend/brand/brand.blade.php
+resources/views/backend/supplier/supplier.blade.php
+resources/views/backend/unit/unit.blade.php
+</pre>
+<h2>Typical CRUD pattern</h2>
+<p>All masters follow: index → POST save-update → GET edit/delete → active/inactive (status ≠ 9).</p>
+<div class="page-break"></div><h1>Module 05 — Item Master</h1>
+<h2>Purpose</h2>
+<p>Define catalog items (title, category, brand, supplier, image) used by inventory rows.</p>
+<h2>Routes</h2>
+<table>
+<tr><th>Route</th><th>Action</th></tr>
+<tr><td><code>/items</code></td><td>List / form</td></tr>
+<tr><td><code>/item-save-update</code></td><td>Save</td></tr>
+<tr><td><code>/items-by-category/{categoryId}</code></td><td>JSON/list by category</td></tr>
+<tr><td><code>/item-edit/{id}</code>, <code>/item-delete/{id}</code></td><td>CRUD</td></tr>
+<tr><td><code>/item-active/{id}</code>, <code>/item-in-active/{id}</code></td><td>Status</td></tr>
+</table>
+<h2>Controller / repo</h2>
+<p>• <strong>Controller:</strong> <code>ItemController</code>  </p>
+<p>• <strong>Repo:</strong> <code>ItemsRepo</code> / <code>ItemsRepoImpl</code>  </p>
+<p>• <strong>Table:</strong> <code>item_info</code> (primary in code; migrations may reference <code>items</code>)</p>
+<h2>Item code generation</h2>
+<p><code>ItemController</code> uses supplier/brand/category context and <code>UserAccessTraits::generateRandomItemCode()</code> for codes when not supplied.</p>
+<h2>View</h2>
+<p><code>resources/views/backend/item/item.blade.php</code></p>
+<h2>Links to inventory</h2>
+<p>• <code>item_inventory.item_id</code> → <code>item_info.id</code>  </p>
+<p>• Item dropdown on inventory form uses <code>data-category-id</code> for UI auto-category (manual entry only; CSV uses IT Equipment rule).</p>
+<div class="page-break"></div><h1>Module 06 — Item Inventory (Manual Entry)</h1>
+<h2>Routes</h2>
+<table>
+<tr><th>Route</th><th>Action</th></tr>
+<tr><td><code>/items-inventory</code></td><td>Entry form</td></tr>
+<tr><td><code>/items-inventory-list</code></td><td>List</td></tr>
+<tr><td><code>/items-inventory-save-update</code></td><td>Create package</td></tr>
+<tr><td><code>/items-inventory-edit/{id}</code></td><td>Edit</td></tr>
+<tr><td><code>/items-inventory-update/{id}</code></td><td>Update</td></tr>
+<tr><td><code>/items-inventory-delete/{id}</code></td><td>Soft delete (status)</td></tr>
+</table>
+<h2>Controller / repo</h2>
+<p>• <strong>Controller:</strong> <code>ItemsInventoryController</code>  </p>
+<p>• <strong>Repo:</strong> <code>ItemsInventoryRepo</code> / <code>ItemsInventoryRepoImpl</code>  </p>
+<p>• <strong>Model:</strong> <code>ItemsInventoryModel</code></p>
+<h2>Package model</h2>
+<p>One logical device = <strong>one <code>set_uniq_no</code></strong> with multiple rows:</p>
+<table>
+<tr><th>Row</th><th>Typical content</th></tr>
+<tr><td>Main</td><td>Desktop/Laptop item, full specs on main row</td></tr>
+<tr><td>Child</td><td>RAM, Storage, Processor as separate <code>item_inventory</code> rows</td></tr>
+</table>
+<p>All use <strong><code>store_type = SP</code></strong>, same <code>set_uniq_no</code>.</p>
+<h2>SET_UNIQ_NO</h2>
+<p>Generated via <code>SetUniqNoFormatter</code> — format <code>PBL-{abbr}-{seq}</code>.</p>
+<h2>Edit specifications</h2>
+<p>• <code>getSetUniqNoSpecifications</code> loads all rows for a set (status ≠ 9).  </p>
+<p>• Modal JS pre-selects RAM/Storage/Processor; update syncs component rows.</p>
+<h2>UI behaviour</h2>
+<p>• Select item → auto category from <code>item_info.category_id</code>  </p>
+<p>• Default condition: <strong>good</strong></p>
+<h2>Views</h2>
+<p>• <code>item_inventory.blade.php</code>  </p>
+<p>• <code>item_inventory_edit.blade.php</code>  </p>
+<p>• <code>item_inventory_list.blade.php</code></p>
+<h2>Stock in number</h2>
+<p><code>StockReferencePrefixBuilder::formatStockInNumber()</code> on save where applicable.</p>
+<div class="page-break"></div><h1>Module 07 — Branch CSV / Excel Upload</h1>
+<h2>Routes</h2>
+<table>
+<tr><th>Method</th><th>Route</th><th>Name</th></tr>
+<tr><td>GET</td><td><code>/items-inventory-csv-upload</code></td><td>Upload form + branch</td></tr>
+<tr><td>GET</td><td><code>/items-inventory-csv-sample/{format?}</code></td><td>Sample download</td></tr>
+<tr><td>POST</td><td><code>/items-inventory-csv-upload-process</code></td><td>Parse → preview</td></tr>
+<tr><td>POST</td><td><code>/items-inventory-csv-store</code></td><td>Import</td></tr>
+<tr><td>GET</td><td><code>/items-inventory-csv-cancel</code></td><td>Clear session</td></tr>
+<tr><td>GET</td><td><code>/items-inventory-csv-export-result</code></td><td>Result Excel</td></tr>
+</table>
+<h2>Controller</h2>
+<p><code>ItemsCsvUploadController</code> <strong>Repo:</strong> <code>ItemsCsvUploadRepo</code> / <code>ItemsCsvUploadRepoImpl</code></p>
+<h2>Parser</h2>
+<p><code>App\Support\InventorySpreadsheetImportMapper</code></p>
+<table>
+<tr><th>Format</th><th>Detection</th></tr>
+<tr><td><code>branch_inventory</code></td><td>Header row + column aliases</td></tr>
+<tr><td><code>wide_asset_matrix</code></td><td>Group headers (Laptop/Monitor) + Brand/Serial subheaders</td></tr>
+</table>
+<h2>Session keys</h2>
+<table>
+<tr><th>Key</th><th>Content</th></tr>
+<tr><td><code>csv_preview_data</code></td><td>Rows for preview grid</td></tr>
+<tr><td><code>csv_upload_branch_id</code></td><td>Selected branch</td></tr>
+<tr><td><code>csv_import_meta</code></td><td>format, header row, warnings</td></tr>
+<tr><td><code>csv_upload_export_rows</code></td><td>Post-import export</td></tr>
+</table>
+<h2>Category rule</h2>
+<p><strong>All branch import rows → category <code>IT Equipment</code></strong> (match DB category id when exists). Item master match still applies for <strong>item</strong> dropdown only.</p>
+<h2>SET_UNIQ_NO</h2>
+<p>• Assigned in preview via <code>assignPreviewSetUniqNumbers()</code>  </p>
+<p>• Import: <code>resolveSetUniqNoForImport()</code> + conflict checks  </p>
+<p>• Formatter: <code>SetUniqNoFormatter</code></p>
+<h2>Specs from CSV</h2>
+<p>Optional columns / description parsing → RAM, Storage, Processor; <code>processSpecsFromCsv()</code> creates SP rows.</p>
+<h2>Views</h2>
+<p>• <code>resources/views/backend/items_csv_upload/upload.blade.php</code>  </p>
+<p>• <code>resources/views/backend/items_csv_upload/preview.blade.php</code> (editable grid)</p>
+<h2>Related</h2>
+<p><code>ItemsCsvReceiveController</code> — alternate receive flow (<code>/items-inventory-csv-receive</code>).</p>
+<p>See also: <code>CSV_UPLOAD_GUIDE.md</code>, <code>CSV_UPLOAD_IMPLEMENTATION.md</code>.</p>
+<div class="page-break"></div><h1>Module 08 — Stock In</h1>
+<h2>Routes</h2>
+<table>
+<tr><th>Route</th><th>Action</th></tr>
+<tr><td><code>/stock-in</code></td><td>Entry form</td></tr>
+<tr><td><code>/stock-in-save-update</code></td><td>Save lines</td></tr>
+<tr><td><code>/stock-in-list</code></td><td>List</td></tr>
+<tr><td><code>/stock-in-invoice/{stockInNo}</code></td><td>Invoice view</td></tr>
+<tr><td>POST</td><td><code>/stock-in-get-inventory-by-item-id</code>, <code>/stock-in-get-items-by-set-uniq-no</code></td><td>AJAX</td></tr>
+</table>
+<h2>Controller / repo</h2>
+<p>• <strong>Controller:</strong> <code>StockInController</code>  </p>
+<p>• <strong>Repo:</strong> <code>StockInRepo</code> / <code>StockInRepoImpl</code></p>
+<h2>store_type</h2>
+<p>New lines use <strong><code>store_type = SI</code></strong>.</p>
+<h2>stock_in_no</h2>
+<p>Requires column on Oracle (see <code>database/migrations/add_stock_in_no_to_item_inventory.sql</code>). Built with <code>StockReferencePrefixBuilder</code>.</p>
+<h2>Views</h2>
+<p>• <code>stock_in.blade.php</code>  </p>
+<p>• <code>stock_in_list.blade.php</code>  </p>
+<p>• <code>stock_in_invoice.blade.php</code></p>
+<h2>Reference doc</h2>
+<p><code>STOCK_IN_OUT_IMPLEMENTATION.md</code></p>
+<div class="page-break"></div><h1>Module 09 — Stock Out, Receive, Transfer, Return</h1>
+<h2>Stock out</h2>
+<table>
+<tr><th>Route</th><th>Action</th></tr>
+<tr><td><code>/stock-out</code></td><td>Issue form</td></tr>
+<tr><td><code>/stock-out-save-update</code></td><td>Save</td></tr>
+<tr><td><code>/stock-out-list</code></td><td>List</td></tr>
+<tr><td><code>/stock-out-invoice/{stockOutNo}</code></td><td>Invoice</td></tr>
+<tr><td><code>/stock-out-gate-pass-print-log</code></td><td>Gate pass log</td></tr>
+</table>
+<p><strong>store_type:</strong> <code>SO</code> <strong>Controller:</strong> <code>StockOutController</code> <strong>Repo:</strong> <code>StockOutRepo</code> / <code>StockOutRepoImpl</code></p>
+<h2>Receive stock</h2>
+<table>
+<tr><th>Route</th><th><code>/receive-stock</code>, POST <code>/receive-stock-save</code></th></tr>
+</table>
+<p>Return / receive flow for issued items.</p>
+<h2>Transfer items</h2>
+<table>
+<tr><th>Route</th><th><code>/transfer-items</code>, POST <code>/transfer-items-save</code></th></tr>
+</table>
+<p>• Moves assignment between employees (same branch context).  </p>
+<p>• <strong>Remark</strong> field saved on inventory + <strong><code>item_transfer_logs</code></strong>.  </p>
+<p>• View: <code>transfer_items.blade.php</code></p>
+<h2>Return to division</h2>
+<table>
+<tr><th>Route</th><th><code>/return-to-division</code>, POST <code>/return-to-division-save</code></th></tr>
+</table>
+<p>View: <code>return_to_division.blade.php</code></p>
+<h2>AJAX helpers</h2>
+<p>• <code>/get-employee-by-id</code> — HRM employee  </p>
+<p>• <code>/get-inventory-by-item-id</code>  </p>
+<p>• <code>/get-items-by-set-uniq-no</code>  </p>
+<p>• <code>/stock-out-branch-set-uniq-list</code></p>
+<h2>HRM</h2>
+<p><code>CommonTraits::employeeInfo()</code> — env <code>PADMA_HRM_API_URL</code></p>
+<h2>Views</h2>
+<p><code>stock_out.blade.php</code>, <code>stock_out_list.blade.php</code>, <code>stock_out_invoice.blade.php</code>, <code>receive_stock.blade.php</code></p>
+<div class="page-break"></div><h1>Module 10 — Item Swap</h1>
+<h2>Purpose</h2>
+<p>Same branch/division: hand off device from one employee to another with <strong>pending → receive</strong> workflow.</p>
+<h2>Routes</h2>
+<table>
+<tr><th>Route</th><th>Action</th></tr>
+<tr><td>GET <code>/swap-items</code></td><td>Search employee, pick device</td></tr>
+<tr><td>POST <code>/swap-items-save</code></td><td>Create swap (pending)</td></tr>
+<tr><td>GET <code>/receive-swap-items/{swapNo?}</code></td><td>Receiver UI</td></tr>
+<tr><td>POST <code>/receive-swap-items-save</code></td><td>Confirm with remarks</td></tr>
+</table>
+<h2>Controller / repo</h2>
+<p>• <strong>Controller:</strong> <code>ItemSwapController</code>  </p>
+<p>• <strong>Repo:</strong> <code>ItemSwapRepo</code> / <code>ItemSwapRepoImpl</code>  </p>
+<p>• <strong>Model:</strong> <code>ItemSwapLogModel</code></p>
+<h2>Table: item_swap_logs</h2>
+<table>
+<tr><th>status</th><th>Meaning</th></tr>
+<tr><td>1</td><td>Pending receive</td></tr>
+<tr><td>2</td><td>Received</td></tr>
+<tr><td>3</td><td>Cancelled</td></tr>
+</table>
+<p>Fields include: <code>swap_no</code>, <code>item_inventory_id</code>, <code>from_employee_id</code>, <code>to_employee_id</code>, branch/division ids, <code>remarks</code>, <code>receive_remarks</code>, <code>received_at</code>.</p>
+<h2>Inventory</h2>
+<p>Initiate swap marks related inventory as pending; receive completes assignment update.</p>
+<h2>Views</h2>
+<p>• <code>swap_items.blade.php</code>  </p>
+<p>• <code>receive_swap_items.blade.php</code></p>
+<h2>Migration</h2>
+<p><code>database/migrations/2026_03_21_000000_create_item_swap_logs_table.php</code></p>
+<div class="page-break"></div><h1>Module 11 — Inventory Reports</h1>
+<h2>Controller / repo</h2>
+<p>• <strong>Controller:</strong> <code>InventoryReportController</code>  </p>
+<p>• <strong>Repo:</strong> <code>InventoryReportRepo</code> / <code>InventoryReportRepoImpl</code>  </p>
+<p>• <strong>Exports:</strong> <code>app/Exports/Inventory*ReportExport.php</code></p>
+<h2>Routes</h2>
+<table>
+<tr><th>Route</th><th>Report</th></tr>
+<tr><td><code>/inventory-report</code></td><td>Summary in/out</td></tr>
+<tr><td><code>/inventory-report-details</code></td><td>AJAX details</td></tr>
+<tr><td><code>/inventory-detail-report</code></td><td>Detail grid</td></tr>
+<tr><td><code>/inventory-summary</code></td><td>Division/branch summary</td></tr>
+<tr><td><code>/inventory-employee-report</code></td><td>By employee</td></tr>
+<tr><td><code>/inventory-detail-export-excel</code></td><td>Excel</td></tr>
+<tr><td><code>/inventory-detail-export-pdf</code></td><td>PDF</td></tr>
+<tr><td><code>/inventory-summary-export-excel</code></td><td>Summary Excel</td></tr>
+<tr><td><code>/inventory-summary-export-pdf</code></td><td>Summary PDF</td></tr>
+<tr><td><code>/inventory-employee-report-export-excel</code></td><td>Employee Excel</td></tr>
+<tr><td><code>/inventory-employee-report-export-pdf</code></td><td>Employee PDF</td></tr>
+</table>
+<h2>Views</h2>
+<p>• <code>inventory_report.blade.php</code>  </p>
+<p>• <code>inventory_detail_report.blade.php</code> / <code>_pdf.blade.php</code>  </p>
+<p>• <code>inventory_division_branch_summary.blade.php</code>  </p>
+<p>• <code>inventory_employee_report.blade.php</code> / <code>_pdf.blade.php</code>  </p>
+<p>• <code>inventory_summary_report_pdf.blade.php</code></p>
+<h2>Filters</h2>
+<p>Typically org, branch, division, date range, store_type — see controller methods for exact query params.</p>
+<div class="page-break"></div><h1>Module 12 — Procurement (Requisition, Quotation, Challan, Repair)</h1>
+<h2>Requisition</h2>
+<table>
+<tr><th>Route</th><th>Controller</th></tr>
+<tr><td><code>/create-requisition</code>, <code>/requisition-store</code></td><td><code>RequisitionController</code></td></tr>
+<tr><td><code>/requisition-list</code>, <code>/requisition-show/{id}</code></td><td></td></tr>
+</table>
+<p><strong>Repo:</strong> <code>RequisitionRepo</code> / <code>RequisitionRepoImpl</code> <strong>Tables:</strong> <code>requisitions</code>, <code>requisition_items</code></p>
+<h2>Quotation</h2>
+<table>
+<tr><th>Route</th><th>Controller</th></tr>
+<tr><td><code>/create-quotation</code>, <code>/quotation-store</code></td><td><code>QuotationController</code></td></tr>
+<tr><td><code>/quotation-list</code>, <code>/quotation-show/{id}</code></td><td></td></tr>
+<tr><td><code>/quotation-approve/{id}</code></td><td>Approval</td></tr>
+</table>
+<p><strong>Tables:</strong> <code>quotations</code>, <code>quotation_items</code>, <code>quotation_approvals</code></p>
+<h2>Delivery challan</h2>
+<table>
+<tr><th>Route</th><th><code>/delivery-challan</code>, POST store, show</th></tr>
+</table>
+<p><strong>Controller:</strong> <code>DeliveryChallanController</code> <strong>Tables:</strong> <code>delivery_challans</code>, <code>delivery_challan_items</code></p>
+<h2>Product repair (return)</h2>
+<table>
+<tr><th>Route</th><th><code>/product-repair</code>, list, show</th></tr>
+</table>
+<p><strong>Controller:</strong> <code>ProductReturnController</code> <strong>Tables:</strong> <code>product_returns</code>, <code>product_return_items</code></p>
+<h2>Views</h2>
+<pre>
+resources/views/backend/quotation/
+resources/views/backend/item/delivery_challan*.blade.php
+resources/views/backend/item/product_return*.blade.php
+resources/views/backend/item/quotation*.blade.php
+</pre>
+<h2>Models</h2>
+<p><code>RequisitionModel</code>, <code>QuotationModel</code>, <code>DeliveryChallanModel</code>, <code>ProductReturnModel</code>, etc.</p>
+<div class="page-break"></div><h1>Module 13 — Warehouse &amp; Dashboard</h1>
+<h2>Dashboard</h2>
+<table>
+<tr><th>Route</th><th>Controller</th></tr>
+<tr><td><code>/dashboard</code></td><td><code>HomeController</code></td></tr>
+<tr><td><code>/dashboard-total-count-log</code></td><td><code>DashboardLogController</code></td></tr>
+<tr><td><code>/dashboard-category-details</code></td><td>Category drill-down</td></tr>
+<tr><td><code>/dashboard-item-details</code></td><td>Item drill-down</td></tr>
+<tr><td><code>/dashboard-supplier-details</code></td><td>Supplier drill-down</td></tr>
+</table>
+<p><strong>Repo:</strong> <code>DashBoardLogRepo</code> / <code>DashBoardLogRepoImpl</code></p>
+<h2>Warehouse</h2>
+<table>
+<tr><th>Route</th><th>Controller</th></tr>
+<tr><td><code>/add-warehouse</code></td><td><code>WarehouseController</code></td></tr>
+<tr><td><code>/warehouse-save</code>, <code>/warehouse-update</code></td><td></td></tr>
+<tr><td><code>/warehouse-invoice-details/{invoiceNo}</code></td><td></td></tr>
+<tr><td><code>/warehouse-edit/{invoiceNo}</code></td><td></td></tr>
+<tr><td><code>/warehouse-invoice-cancel</code></td><td></td></tr>
+</table>
+<p>Manages warehouse invoice-style entries (legacy/supplier warehouse flow).</p>
+<h2>Barcode (if enabled in menu)</h2>
+<p>Views under <code>resources/views/backend/item/barcode*.blade.php</code> — uses barcode packages from <code>composer.json</code>.</p>
+<div class="page-break"></div><h1>Module 14 — Database, Codes &amp; Integrations</h1>
+<h2>Primary tables (runtime)</h2>
+<table>
+<tr><th>Table</th><th>Role</th></tr>
+<tr><td><code>item_inventory</code></td><td>All stock positions &amp; SI/SO lines</td></tr>
+<tr><td><code>item_info</code></td><td>Item master</td></tr>
+<tr><td><code>category</code>, <code>brand</code>, <code>supplier</code></td><td>Masters</td></tr>
+<tr><td><code>branch</code>, <code>division</code>, <code>department</code></td><td>Org</td></tr>
+<tr><td><code>item_transfer_logs</code></td><td>Transfer audit</td></tr>
+<tr><td><code>item_swap_logs</code></td><td>Swap workflow</td></tr>
+<tr><td><code>users</code>, <code>access_menu</code>, <code>backend_menu</code></td><td>Auth/RBAC</td></tr>
+</table>
+<p><strong>Status convention:</strong> <code>status = 9</code> often means deleted/inactive; active queries use <code>status &lt;&gt; 9</code>.</p>
+<h2>store_type summary</h2>
+<table>
+<tr><th>Value</th><th>Use</th></tr>
+<tr><td>SP</td><td>Inventory package / CSV import / manual entry</td></tr>
+<tr><td>SI</td><td>Stock in</td></tr>
+<tr><td>SO</td><td>Stock out</td></tr>
+</table>
+<h2>SET_UNIQ_NO</h2>
+<p><strong>Class:</strong> <code>App\Support\SetUniqNoFormatter</code> Format: <code>PBL-{ABBR}-{sequence}</code> Sequence: <code>maxSequenceForOrgBranch()</code> over existing inventory (status ≠ 9).</p>
+<h2>Stock numbers</h2>
+<p><strong>Class:</strong> <code>App\Support\StockReferencePrefixBuilder</code> Branch/division tags + set code → <code>stock_in_no</code> / related refs.</p>
+<h2>HRM API</h2>
+<p><strong>Trait:</strong> <code>CommonTraits</code> <strong>Env:</strong> <code>PADMA_HRM_API_URL</code> Login → bearer token → endpoints e.g. <code>/api/v3/user-info-padmaportal?emp_id=</code> Used in stock out, transfer, swap.</p>
+<h2>Oracle vs MySQL</h2>
+<p>• Production: <code>yajra/laravel-oci8</code>, schema often <code>PAD_INVENTORY</code>  </p>
+<p>• Local XAMPP: MySQL, run migrations + any <code>.sql</code> alters needed</p>
+<h2>A–Z SQL scripts (repo)</h2>
+<table>
+<tr><th>File</th><th>Description</th></tr>
+<tr><td><a href="../sql/PAD_INVENTORY_A_TO_Z_ORACLE.sql">docs/sql/PAD_INVENTORY_A_TO_Z_ORACLE.sql</a></td><td>Full Oracle DDL (core + logs + procurement)</td></tr>
+<tr><td><a href="../sql/PAD_INVENTORY_A_TO_Z_MYSQL.sql">docs/sql/PAD_INVENTORY_A_TO_Z_MYSQL.sql</a></td><td>Full MySQL DDL for local</td></tr>
+<tr><td><a href="../sql/PAD_INVENTORY_QUERIES_A_TO_Z.sql">docs/sql/PAD_INVENTORY_QUERIES_A_TO_Z.sql</a></td><td>Reference SELECTs (inventory, barcode, stock)</td></tr>
+<tr><td><a href="../sql/README.md">docs/sql/README.md</a></td><td>How to run</td></tr>
+</table>
+<p><strong>Oracle <code>SET_UNIQ_NO</code>:</strong> may be CLOB — use <code>LENGTH(TRIM(set_uniq_no)) &gt; 0</code> in SQL (see queries file section D–E).</p>
+<h2>Environment checklist</h2>
+<pre>
+APP_URL=
+DB_CONNECTION=
+DB_HOST=
+DB_DATABASE=
+DB_USERNAME=
+DB_PASSWORD=
+PADMA_HRM_API_URL=
+</pre>
+<h2>Log / audit</h2>
+<p>• <code>stock_out_gate_pass_logs</code> — gate pass prints  </p>
+<p>• Transfer/swap tables — movement history</p>
+<div class="page-break"></div><h1>Module 15 — Inventory Barcode (SET_UNIQ_NO)</h1>
+<h2>Routes</h2>
+<table>
+<tr><th>Method</th><th>URL</th><th>Name</th></tr>
+<tr><td>GET</td><td><code>/inventory-barcode</code>, <code>/barcode-generate</code></td><td><code>inventory-barcode</code>, <code>barcode-generate</code></td></tr>
+<tr><td>POST</td><td><code>/inventory-barcode-generate</code>, <code>/barcode-generate-by-item-id</code></td><td><code>inventory-barcode-generate</code></td></tr>
+</table>
+<h2>Flow</h2>
+<p>1. User selects <strong>Division/Branch</strong> (required unless Item chosen) and optional <strong>Item</strong>. 2. <strong>QTY</strong>, <strong>Page Layout</strong>, optional <strong>Price</strong> / <strong>Brand</strong> on label. 3. <strong>Generate</strong> → same page shows <strong>vertical barcode preview</strong> (one label under another, thermal-style). 4. <strong>Print</strong> → one label per print page (<code>@page</code> size from Page Layout).</p>
+<h2>Layers</h2>
+<table>
+<tr><th>Layer</th><th>Class</th></tr>
+<tr><td>Controller</td><td><code>InventoryBarcodeController</code></td></tr>
+<tr><td>Interface</td><td><code>InventoryBarcodeRepo</code></td></tr>
+<tr><td>Repository</td><td><code>InventoryBarcodeRepoImpl</code></td></tr>
+<tr><td>Label sizes</td><td><code>BarcodeLabelSizeCatalog</code></td></tr>
+<tr><td>Views</td><td><code>resources/views/backend/item/inventory_barcode/</code></td></tr>
+<tr><td>CSS</td><td><code>public/backend/assets/css/barcode.css</code></td></tr>
+</table>
+<h2>Data rules</h2>
+<p>• Barcode value: <strong><code>SET_UNIQ_NO</code></strong> (CODE128 via <code>picqer/php-barcode-generator</code>).</p>
+<p>• Main row per set: <code>MAX(item_inventory.id)</code> grouped by <code>set_uniq_no</code>; exclude spec <code>item_id</code> <strong>17, 41, 12, 14</strong> (RAM, processor, HDD, SSD).</p>
+<p>• Active rows: <code>status &lt;&gt; 9</code>.</p>
+<p>• <strong>Oracle:</strong> filter non-empty set with <code>LENGTH(TRIM(set_uniq_no)) &gt; 0</code> (not <code>!= &#039;&#039;</code>).</p>
+<p>• Branch filter: dropdown value <code>branch:{hr_branch_id}</code>; inventory matched via <code>branch.id</code> / <code>hr_branch_id</code> for that branch row only.</p>
+<h2>SQL reference</h2>
+<p>See <a href="../sql/PAD_INVENTORY_QUERIES_A_TO_Z.sql">docs/sql/PAD_INVENTORY_QUERIES_A_TO_Z.sql</a> sections <strong>D, E, F</strong>.</p>
+</body></html>

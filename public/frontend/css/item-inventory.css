@@ -1,0 +1,406 @@
+/* Item Inventory Form Styles — theme #df238e */
+:root {
+    --inv-theme: #df238e;
+    --inv-theme-dark: #c01b78;
+    --inv-theme-soft: rgba(223, 35, 142, 0.14);
+    --inv-theme-softer: rgba(223, 35, 142, 0.08);
+}
+
+.inv-row-container {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.inv-row-container:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-color: #f3b6d7;
+}
+
+.inv-row-container .form-label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 3px;
+    font-size: 12px;
+}
+
+.inv-row-container .form-select,
+.inv-row-container .form-control {
+    padding: 5px 8px;
+    font-size: 14px;
+    min-height: 34px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.inv-row-container .form-select:hover,
+.inv-row-container .form-control:hover {
+    border-color: var(--inv-theme);
+}
+
+.inv-row-container .form-select:focus,
+.inv-row-container .form-control:focus {
+    border-color: var(--inv-theme);
+    box-shadow: 0 0 0 0.2rem var(--inv-theme-soft);
+    outline: none;
+}
+
+.inv-row-container .row {
+    margin-bottom: 8px;
+}
+
+.inv-remove-row {
+    margin-top: 0;
+    height: 30px !important;
+    min-width: 30px !important;
+}
+
+/* Warranty: Year + Month side by side */
+.warranty-ym-group {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.45rem;
+    max-width: 11rem;
+}
+
+.warranty-ym-field {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.warranty-ym-lbl {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: #6c757d;
+    margin-bottom: 0.15rem;
+    line-height: 1;
+}
+
+.warranty-ym-input {
+    width: 100% !important;
+    max-width: 4.25rem;
+    padding: 0.2rem 0.25rem !important;
+    text-align: center;
+    font-size: 0.8125rem !important;
+    min-height: 28px !important;
+    line-height: 1.2;
+}
+
+.warranty-ym-input::-webkit-outer-spin-button,
+.warranty-ym-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.warranty-ym-input {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.inv-row-container .warranty-ym-group .warranty-ym-input,
+.specs-row-container .warranty-ym-group .warranty-ym-input,
+#itemSpecsModal .warranty-ym-group .warranty-ym-input {
+    width: 100% !important;
+    max-width: 4.25rem;
+}
+
+/* Item Specifications Modal Styles */
+.specs-row-container {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.specs-row-container:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.specs-row-container .form-label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 3px;
+    font-size: 12px;
+}
+
+.specs-row-container .form-select,
+.specs-row-container .form-control {
+    padding: 5px 8px;
+    font-size: 14px;
+    min-height: 30px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.specs-row-container .form-select:hover,
+.specs-row-container .form-control:hover {
+    border-color: var(--inv-theme);
+}
+
+.specs-row-container .form-select:focus,
+.specs-row-container .form-control:focus {
+    border-color: var(--inv-theme);
+    box-shadow: 0 0 0 0.2rem var(--inv-theme-soft);
+    outline: none;
+}
+
+/* Main inventory searchable selects — modern theme */
+#inventoryRowsContainer .inv-main-select + .select2-container {
+    width: 100% !important;
+    max-width: 100%;
+}
+#inventoryRowsContainer .select2-container .select2-selection--single {
+    height: 36px !important;
+    min-height: 36px !important;
+    border: 1px solid #d5dbe3 !important;
+    border-radius: 8px !important;
+    background: #fff !important;
+    display: flex;
+    align-items: center;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+#inventoryRowsContainer .select2-container .select2-selection--single:hover {
+    border-color: var(--inv-theme) !important;
+    background: #fffafc !important;
+}
+#inventoryRowsContainer .select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered {
+    line-height: 34px !important;
+    padding-left: 10px;
+    padding-right: 30px;
+    font-size: 0.875rem;
+    color: #212529;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#inventoryRowsContainer .select2-container--bootstrap4 .select2-selection--single .select2-selection__placeholder {
+    color: #94a3b8;
+    line-height: 34px !important;
+}
+#inventoryRowsContainer .select2-container--bootstrap4 .select2-selection--single .select2-selection__arrow {
+    height: 34px !important;
+    top: 1px;
+    right: 4px;
+}
+#inventoryRowsContainer .select2-container--bootstrap4 .select2-selection--single .select2-selection__arrow b {
+    border-color: var(--inv-theme) transparent transparent transparent;
+}
+#inventoryRowsContainer .select2-container--bootstrap4 .select2-selection--single .select2-selection__clear {
+    height: 34px;
+    line-height: 34px;
+    margin-right: 22px;
+    color: var(--inv-theme);
+}
+#inventoryRowsContainer .select2-container--bootstrap4.select2-container--focus .select2-selection--single,
+#inventoryRowsContainer .select2-container--bootstrap4.select2-container--open .select2-selection--single {
+    border-color: var(--inv-theme) !important;
+    box-shadow: 0 0 0 0.2rem var(--inv-theme-soft) !important;
+}
+#inventoryRowsContainer > .inv-row-container .row > [class*="col-"] {
+    min-width: 0;
+}
+
+/* Specs modal — modern layout + Select2 */
+#itemSpecsModal .modal-dialog {
+    max-width: 96vw;
+}
+#itemSpecsModal .specs-modal-header {
+    background: linear-gradient(135deg, var(--inv-theme) 0%, var(--inv-theme-dark) 100%);
+    color: #fff;
+    border-bottom: 0;
+}
+#itemSpecsModal .specs-modal-body {
+    padding: 1rem 1.25rem;
+    background: #fff5fa;
+}
+#itemSpecsModal .specs-section {
+    background: #fff;
+    border: 1px solid #f3d0e4;
+    border-radius: 12px;
+    padding: 0.9rem 1rem 1rem;
+    box-shadow: 0 4px 14px rgba(223, 35, 142, 0.06);
+}
+#itemSpecsModal .specs-section-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--inv-theme-dark);
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.45rem;
+    border-bottom: 1px solid #f7d7e9;
+}
+#itemSpecsModal .specs-row-container {
+    background: #fffafc;
+    border: 1px dashed #efc2db;
+    border-radius: 10px;
+    padding: 0.85rem;
+    margin-bottom: 0.65rem;
+    box-shadow: none;
+}
+#itemSpecsModal .specs-row-container .form-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 0.25rem;
+}
+#itemSpecsModal .form-select,
+#itemSpecsModal .form-control {
+    min-height: 36px;
+    font-size: 0.875rem;
+    border-radius: 8px;
+    border-color: #e2b7d1;
+}
+#itemSpecsModal .form-select:hover,
+#itemSpecsModal .form-control:hover {
+    border-color: var(--inv-theme);
+}
+#itemSpecsModal .form-select:focus,
+#itemSpecsModal .form-control:focus {
+    border-color: var(--inv-theme);
+    box-shadow: 0 0 0 0.2rem var(--inv-theme-soft);
+}
+#itemSpecsModal .specs-remove-btn {
+    min-width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+}
+#itemSpecsModal .warranty-ym-group {
+    max-width: none;
+    width: 100%;
+}
+#itemSpecsModal .warranty-ym-input {
+    max-width: none !important;
+    min-height: 36px !important;
+}
+#itemSpecsModal .specs-modal-footer {
+    background: #fff;
+    border-top: 1px solid #f3d0e4;
+}
+
+/* Modal Select2 modern style */
+#itemSpecsModal .inv-modal-select + .select2-container {
+    width: 100% !important;
+}
+#itemSpecsModal .select2-container .select2-selection--single {
+    height: 36px !important;
+    min-height: 36px !important;
+    border: 1px solid #e2b7d1 !important;
+    border-radius: 8px !important;
+    background: #fff !important;
+    display: flex;
+    align-items: center;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+#itemSpecsModal .select2-container .select2-selection--single:hover {
+    border-color: var(--inv-theme) !important;
+    background: #fffafc !important;
+}
+#itemSpecsModal .select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered {
+    line-height: 34px !important;
+    padding-left: 10px;
+    padding-right: 30px;
+    font-size: 0.875rem;
+    color: #0f172a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#itemSpecsModal .select2-container--bootstrap4 .select2-selection--single .select2-selection__placeholder {
+    color: #94a3b8;
+    line-height: 34px !important;
+}
+#itemSpecsModal .select2-container--bootstrap4 .select2-selection--single .select2-selection__arrow {
+    height: 34px !important;
+    top: 1px;
+    right: 4px;
+}
+#itemSpecsModal .select2-container--bootstrap4 .select2-selection--single .select2-selection__arrow b {
+    border-color: var(--inv-theme) transparent transparent transparent;
+}
+#itemSpecsModal .select2-container--bootstrap4 .select2-selection--single .select2-selection__clear {
+    height: 34px;
+    line-height: 34px;
+    margin-right: 22px;
+    color: var(--inv-theme);
+}
+#itemSpecsModal .select2-container--bootstrap4.select2-container--focus .select2-selection--single,
+#itemSpecsModal .select2-container--bootstrap4.select2-container--open .select2-selection--single {
+    border-color: var(--inv-theme) !important;
+    box-shadow: 0 0 0 0.2rem var(--inv-theme-soft) !important;
+}
+
+/* Shared Select2 dropdown theme (search + hover) */
+.select2-container--bootstrap4 .select2-dropdown {
+    border-color: #efc2db;
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 2100;
+    box-shadow: 0 10px 24px rgba(223, 35, 142, 0.12);
+}
+.select2-container--bootstrap4 .select2-search--dropdown {
+    padding: 8px;
+    background: #fffafc;
+}
+.select2-container--bootstrap4 .select2-search--dropdown .select2-search__field {
+    border-radius: 8px;
+    border: 1px solid #e2b7d1;
+    padding: 0.45rem 0.65rem;
+    outline: none;
+}
+.select2-container--bootstrap4 .select2-search--dropdown .select2-search__field:focus {
+    border-color: var(--inv-theme);
+    box-shadow: 0 0 0 0.15rem var(--inv-theme-soft);
+}
+.select2-container--bootstrap4 .select2-results__option {
+    padding: 0.45rem 0.75rem;
+    font-size: 0.875rem;
+}
+.select2-container--bootstrap4 .select2-results__option--highlighted,
+.select2-container--bootstrap4 .select2-results__option--highlighted[aria-selected],
+.select2-container--bootstrap4 .select2-results__option[aria-selected="true"] {
+    background-color: var(--inv-theme) !important;
+    color: #fff !important;
+}
+.select2-container--bootstrap4 .select2-results__option:hover {
+    background-color: var(--inv-theme) !important;
+    color: #fff !important;
+}
+
+/* Page action buttons on inventory */
+#inventoryForm .btn-primary,
+#itemSpecsModal .btn-primary {
+    background-color: var(--inv-theme);
+    border-color: var(--inv-theme);
+}
+#inventoryForm .btn-primary:hover,
+#itemSpecsModal .btn-primary:hover,
+#inventoryForm .btn-primary:focus,
+#itemSpecsModal .btn-primary:focus {
+    background-color: var(--inv-theme-dark);
+    border-color: var(--inv-theme-dark);
+    box-shadow: 0 0 0 0.2rem var(--inv-theme-soft);
+}
+#inventoryForm .btn-outline-primary,
+#itemSpecsModal .btn-outline-primary {
+    color: var(--inv-theme);
+    border-color: var(--inv-theme);
+}
+#inventoryForm .btn-outline-primary:hover,
+#itemSpecsModal .btn-outline-primary:hover {
+    background-color: var(--inv-theme);
+    border-color: var(--inv-theme);
+    color: #fff;
+}
